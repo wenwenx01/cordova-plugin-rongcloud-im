@@ -7,6 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+
 /**
  * This class echoes a string called from JavaScript.
  */
@@ -14,19 +17,32 @@ public class RongCloudIm extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.equals("coolMethod")) {
-            String message = args.getString(0);
-            this.coolMethod(message, callbackContext);
+        if (action.equals("connect")) {
+            this.connect(args.getString(0), callbackContext);
+            return true;
+        } else if (action.equals("init")) {
+            this.init();
             return true;
         }
         return false;
     }
 
-    private void coolMethod(String message, CallbackContext callbackContext) {
-        if (message != null && message.length() > 0) {
-            callbackContext.success(message);
-        } else {
-            callbackContext.error("Expected one non-empty string argument.");
-        }
+    private void init() {
+        RongIM.init(this.cordova.getActivity().getApplicationContext());
+    }
+
+    private void connect(String token, final CallbackContext callbackContext) {
+        RongIM.connect(token, new RongIMClient.ConnectCallback() {
+
+            @Override
+            public void onSuccess(String userId) {
+                callbackContext.success(userId);
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode error) {
+                callbackContext.error("Error: " + error);
+            }
+        });
     }
 }
