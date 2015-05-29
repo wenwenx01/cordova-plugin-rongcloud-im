@@ -126,7 +126,7 @@
             android:value="$APP_KEY" />
             <!-- end -->
         </config-file>
-        <source-file src="src/android/RongCloudIm.java" target-dir="src/cordova/plugin/rongcloud/im/RongCloudIm" />
+        <source-file src="src/android/RongCloudIm.java" target-dir="src/cordova/plugin/rongcloud/im" />
         <framework src="platforms/android/IMKit" custom="true" />
     </platform>
     <platform name="ios">
