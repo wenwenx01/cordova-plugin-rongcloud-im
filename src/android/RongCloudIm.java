@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 
 /**
  * This class echoes a string called from JavaScript.
@@ -22,6 +23,15 @@ public class RongCloudIm extends CordovaPlugin {
             return true;
         } else if (action.equals("init")) {
             this.init();
+            return true;
+        } else if (action.equals("startPrivateChat")) {
+            this.startPrivateChat(args.getString(0), args.getString(1));
+            return true;
+        } else if (action.equals("startConversationList")) {
+            this.startConversationList();
+            return true;
+        } else if (action.equals("startConversationGroupList")) {
+            this.startConversationGroupList();
             return true;
         }
         return false;
@@ -45,4 +55,16 @@ public class RongCloudIm extends CordovaPlugin {
             }
         });
     }
+
+    private void startPrivateChat(String userId, String title) {
+        RongIM.getInstance().startPrivateChat(this.cordova.getActivity(), userId, title);
+    }
+
+    private void startConversationList() {
+        RongIM.getInstance().startConversationList(this.cordova.getActivity());
+    }   
+
+    private void startConversationGroupList() {
+        RongIM.getInstance().startSubConversationList(this.cordova.getActivity(), Conversation.ConversationType.GROUP);
+    }   
 }

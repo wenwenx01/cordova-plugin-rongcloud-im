@@ -47,7 +47,7 @@
                     <action android:name="android.intent.action.VIEW" />
                     <category android:name="android.intent.category.DEFAULT" />
                     <data
-                    android:host="io.rong.imkit"
+                    android:host="$PACKAGE_NAME"
                     android:pathPrefix="/VoIPCall"
                     android:scheme="rong" />
                 </intent-filter>
@@ -60,7 +60,7 @@
                     <action android:name="android.intent.action.VIEW" />
                     <category android:name="android.intent.category.DEFAULT" />
                     <data
-                    android:host="io.rong.imkit"
+                    android:host="$PACKAGE_NAME"
                     android:pathPrefix="/VoIPAccept"
                     android:scheme="rong" />
                 </intent-filter>
@@ -124,10 +124,60 @@
             <meta-data
             android:name="RONG_CLOUD_APP_KEY"
             android:value="$APP_KEY" />
+            <activity android:name="cordova.plugin.rongcloud.im.ConversationActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.VIEW" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                    <data  
+                   android:host="$PACKAGE_NAME"
+                   android:pathPrefix="/conversation/"  
+                   android:scheme="rong" />
+                </intent-filter>
+            </activity>
+            <activity android:name="cordova.plugin.rongcloud.im.ConversationListActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.VIEW" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                    <data  
+                   android:host="$PACKAGE_NAME"
+                   android:pathPrefix="/conversationlist/"  
+                   android:scheme="rong" />
+                </intent-filter>
+            </activity>
+            <activity android:name="cordova.plugin.rongcloud.im.ConversationSettingActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.VIEW" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                    <data  
+                   android:host="$PACKAGE_NAME"
+                   android:pathPrefix="/conversationsetting/"  
+                   android:scheme="rong" />
+                </intent-filter>
+            </activity>
+            <activity android:name="cordova.plugin.rongcloud.im.ConversationGroupListActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.VIEW" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                    <data  
+                   android:host="$PACKAGE_NAME"
+                   android:pathPrefix="/conversationgrouplist/"  
+                   android:scheme="rong" />
+                </intent-filter>
+            </activity>
             <!-- end -->
         </config-file>
+        <resource-file src="src/android/res/drawable-xhdpi/im_actionbar_back.png" target="res/drawable-xhdpi/im_actionbar_back.png" />
+        <resource-file src="src/android/res/layout/conversation.xml" target="res/layout/conversation.xml" />
+        <resource-file src="src/android/res/layout/conversationlist.xml" target="res/layout/conversationlist.xml" />
+        <resource-file src="src/android/res/layout/conversationsetting.xml" target="res/layout/conversationsetting.xml" />
+        <resource-file src="src/android/res/layout/conversationgrouplist.xml" target="res/layout/conversationgrouplist.xml" />
         <source-file src="src/android/RongCloudIm.java" target-dir="src/cordova/plugin/rongcloud/im" />
+        <source-file src="src/android/ConversationActivity.java" target-dir="src/cordova/plugin/rongcloud/im" />
+        <source-file src="src/android/ConversationListActivity.java" target-dir="src/cordova/plugin/rongcloud/im" />
+        <source-file src="src/android/ConversationSettingActivity.java" target-dir="src/cordova/plugin/rongcloud/im" />
+        <source-file src="src/android/ConversationGroupListActivity.java" target-dir="src/cordova/plugin/rongcloud/im" />
         <framework src="platforms/android/IMKit" custom="true" />
+        <framework src="com.android.support:appcompat-v7:+"/>
     </platform>
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
@@ -135,6 +185,6 @@
                 <param name="ios-package" value="RongCloudIm" />
             </feature>
         </config-file>
-        <source-file src="src/ios/CDVRongCloudIm.m" />
+        <source-file src="src/ios/RongCloudIm.m" />
     </platform>
 </plugin>
