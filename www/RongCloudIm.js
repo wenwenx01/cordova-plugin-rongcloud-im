@@ -20,3 +20,7 @@ exports.startConversationGroupList = function() {
     exec(null, null, "RongCloudIm", "startConversationGroupList", []);
 };
 
+exports.addUserInfo = function(userId, userName, portraitUri) {
+    exec(null, null, "RongCloudIm", "addUserInfo", [userId, userName, portraitUri]);
+}
+
