@@ -26,7 +26,7 @@ import io.rong.imkit.model.UIConversation;
 /**
  * This class echoes a string called from JavaScript.
  */
-public class RongCloudIm extends CordovaPlugin implements RongIM.GetUserInfoProvider, RongIM.ConversationBehaviorListener, RongIM.LocationProvider {
+public class RongCloudIm extends CordovaPlugin implements RongIM.UserInfoProvider, RongIM.ConversationBehaviorListener, RongIM.LocationProvider {
     HashMap<String, UserInfo> userInfos = new HashMap<String, UserInfo>();
 
     @Override
@@ -55,7 +55,7 @@ public class RongCloudIm extends CordovaPlugin implements RongIM.GetUserInfoProv
 
     private void init() {
         RongIM.init(this.cordova.getActivity().getApplicationContext());
-        RongIM.setGetUserInfoProvider(this, true);
+        RongIM.setUserInfoProvider(this, true);
         RongIM.setConversationBehaviorListener(this);
         RongIM.setLocationProvider(this);
     }
@@ -75,6 +75,10 @@ public class RongCloudIm extends CordovaPlugin implements RongIM.GetUserInfoProv
 
     private void connect(String token, final CallbackContext callbackContext) {
         RongIM.connect(token, new RongIMClient.ConnectCallback() {
+            @Override
+            public void onTokenIncorrect() {
+                // to-do
+            }
 
             @Override
             public void onSuccess(String userId) {
@@ -102,6 +106,12 @@ public class RongCloudIm extends CordovaPlugin implements RongIM.GetUserInfoProv
 
     // ConversationBehaviorListener
     @Override
+    public boolean onUserPortraitLongClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
+        return false;
+    }
+
+    // ConversationBehaviorListener
+    @Override
     public boolean onMessageClick(Context context, View view, Message message) {
         //if (message.getContent() instanceof LocationMessage) {
             //Intent intent = new Intent(context, SOSOLocationActivity.class);
@@ -115,16 +125,6 @@ public class RongCloudIm extends CordovaPlugin implements RongIM.GetUserInfoProv
     public boolean onMessageLongClick(Context context, View view, Message message) {
         return false;
     }   
-
-    @Override
-    public boolean onConversationLongClick(Context context, View view, UIConversation uiConversation) {
-        return false;
-    }   
-
-    @Override
-    public boolean onConversationItemClick(Context context, View view, UIConversation uiConversation) {
-        return false;
-    }
 
     // ConversationBehaviorListener
     @Override

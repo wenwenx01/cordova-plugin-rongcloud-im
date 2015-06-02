@@ -16,7 +16,6 @@
             </feature>
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml" >
-            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -69,14 +68,12 @@
             android:name="io.rong.imlib.ipc.RongService"
             android:process=":ipc" ></service>
             <service android:name="io.rong.imlib.ReConnectService" />
+            <receiver android:name="io.rong.imlib.ConnectChangeReceiver" />
             <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver" >
                 <intent-filter>
                     <action android:name="io.rong.push.message" />
                 </intent-filter>
             </receiver>
-            <activity
-            android:name="io.rong.imkit.RongActivity"
-            android:screenOrientation="portrait" ></activity>
             <activity
             android:name="io.rong.imkit.tools.SelectPictureActivity"
             android:screenOrientation="portrait" />
